@@ -33,11 +33,11 @@ public class Proj6InstructorsTestCase
       MinIntHeap h2 = new MinIntHeap(a, 20);
       System.out.print("\nPrint Heap Values:\n");
       h2.printHeapValues();
-//      h2.heapInsert(2);
-//      System.out.println( "removed min = " + h2.removeMin());
-//      System.out.println( "removed min = " + h2.removeMin());
-//      System.out.print("\nPrint Heap Values:\n");
-//      h2.printHeapValues();
+      h2.heapInsert(2);
+      System.out.println( "removed min = " + h2.removeMin());
+      System.out.println( "removed min = " + h2.removeMin());
+      System.out.print("\nPrint Heap Values:\n");
+      h2.printHeapValues();
       
    
 //      System.out.println("\n-------------Testing heapsort---------------------------------------");

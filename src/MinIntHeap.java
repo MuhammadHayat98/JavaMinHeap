@@ -47,6 +47,7 @@ public class MinIntHeap {
 	   { 
 		   int minValue = items[1];
 		   items[1] = items[lastNode];
+		   items[lastNode] = 0;
 		   this.lastNode--;
 		   this.size--;
 		   bubbleDown(1);
