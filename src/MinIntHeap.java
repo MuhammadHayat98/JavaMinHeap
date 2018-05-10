@@ -8,15 +8,15 @@ public class MinIntHeap {
 	 //constructor that sets max capacity of the heap to m
 	   public MinIntHeap( int m) 
 	   {  
-		   this.items = new int[m];
-		   this.lastNode = 0;;
+		   this.items = new int[m+1];
+		   this.lastNode = 0;
 	   }   
 
 	//constructor that sets max capacity of heap to m; initializes the heap with the b values. 
 	//Use a private method called buildheap
 	   public MinIntHeap( int[] b, int m) 
 	   { 
-		   this.items = new int[m];
+		   this.items = new int[m+1];
 		   
 		   buildHeap(b);
 	   }
@@ -36,15 +36,29 @@ public class MinIntHeap {
 	   }  //return number of values in the heap
 	   public void heapInsert(int v) 
 	   { 
-		   this.lastNode++;
-		   items[lastNode] = v;
-		   bubbleUp(lastNode);
-		   this.size++;
+		   if(this.size+1 == items.length) {
+			   System.out.println("Heap is full, value not added = " + v);
+		   }
+		   else 
+		   {
+			   this.lastNode++;
+			   items[lastNode] = v;
+			   bubbleUp(lastNode);
+			   this.size++;
+		   }
+		   
+		   
+		   
 		   
 	   }
 	   
 	   public int  removeMin () 
 	   { 
+		   if(isEmpty()) {
+			   System.out.println("Cannot delete min from an empty heap");
+			   return -9999;
+		   }
+			   
 		   int minValue = items[1];
 		   items[1] = items[lastNode];
 		   items[lastNode] = 0;
@@ -55,6 +69,9 @@ public class MinIntHeap {
 	   }
 	   public int min() 
 	   {
+		   if(isEmpty()) {
+			   return -9999;
+		   }
 		   return items[1];
 	   }
 
@@ -63,6 +80,7 @@ public class MinIntHeap {
 	  {
 		  for(int i = 1; i <= this.size; i++)
 			  System.out.print(items[i] + " ");
+		  System.out.println();
 	  }
 	 
 	// Return a copy of the heap values in heap array order.
@@ -77,9 +95,13 @@ public class MinIntHeap {
 	 }   
 
 	 //Uses heapsort algorithm to sort the array b. This is the only static method.
-	public static void heapsort( int[] b) 
+	public static void heapSort( int[] b) 
 	{ 
-	
+		MinIntHeap h = new MinIntHeap(b, (b.length+1));
+		for(int i = 0; i < b.length; i++)
+		{
+			b[i] = h.removeMin();
+		}
 	} 
 
 	  //------------private methods ---- including bubbleup, bubbledown and buildheap-------
@@ -101,6 +123,7 @@ public class MinIntHeap {
 	
 	private void bubbleDown(int n) 
 	{
+		
 		while(hasChild(n))
 		{
 			int child;
@@ -150,20 +173,17 @@ public class MinIntHeap {
 	private int leftChild(int k) 
 	{	
 		int left;
-		if((2*k) > items.length) 
-			left = -1;
-		else
-			left = (items[(2*k)] != 0) ? (2*k) : -1;
+		
+			left = (((2*k) < items.length) && (items[(2*k)] != 0)) ? (2*k) : -1;
 		return left;
 	}
 	
 	private int rightChild(int k) 
 	{
 		int right;
-		if(((2*k)+1) > items.length)
-			right = -1;
-		else
-			right = (items[(2*k)+1] != 0) ? ((2*k)+1) : -1;
+		
+
+			right = ((((2*k)+1) < items.length) && (items[(2*k)+1] != 0)) ? ((2*k)+1) : -1;
 		return right;
 	}
 	private int parent(int k) 
